@@ -2,7 +2,6 @@ package io.hyker.examples.riks;
 
 import io.moquette.server.Server;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.slf4j.impl.SimpleLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,13 +27,12 @@ public class App
         }
 
         String topic = "global/alarms";
-        String message = "message";
 
         String broker = "tcp://127.0.0.1:1883";
 
         try {
             FireAlarm alarm = new FireAlarm(topic, broker, "ALARM");
-            MQTTClient subscriber1 = new MQTTClient(broker, "subscriber1");
+            PubSubClient subscriber1 = new PubSubClient(broker, "subscriber1");
 
             subscriber1.subscribe(topic);
 
@@ -44,10 +42,6 @@ public class App
                 alarm.reset();
                 Thread.sleep(3000);
             }
-
-//            publisher.disconnect();
-//            subscriber1.disconnect();
-//            subscriber2.disconnect();
 
         } catch (MqttException e) {
             e.printStackTrace();

@@ -9,6 +9,20 @@
 
   <name>alarm-example</name>
   <url>http://maven.apache.org</url>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,15 +43,39 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.6.2</version>
+      <groupId>io.hyker.riks</groupId>
+      <artifactId>riks</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/riks-0.4.0-draft1.jar</systemPath>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>io.hyker.pep</groupId>
+      <artifactId>pep</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/crypto-client-java-0.4.1.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle.155</groupId>
+      <artifactId>bcmail</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/bcmail-jdk15on-155.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle.155</groupId>
+      <artifactId>bcpkix</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/bcpkix-jdk15on-155.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle.155</groupId>
+      <artifactId>bcprov</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/bcprov-jdk15on-155.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.eclipse.paho</groupId>
@@ -48,6 +86,17 @@
       <groupId>io.moquette</groupId>
       <artifactId>moquette-broker</artifactId>
       <version>0.9</version>
+    </dependency>
+  <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

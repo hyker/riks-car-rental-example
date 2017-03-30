@@ -8,7 +8,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 public class FireAlarm {
 
     private final String topic;
-    private final MQTTClient client;
+    private final PubSubClient client;
     private final Runnable alarmLoop;
     private Thread alarmThread;
     private boolean alarmIsRunning;
@@ -17,7 +17,7 @@ public class FireAlarm {
     public FireAlarm(final String topic, String broker, String clientID) throws MqttException {
         this.topic = topic;
         alarmIsRunning = false;
-        client = new MQTTClient(broker, clientID);
+        client = new PubSubClient(broker, clientID);
         alarmLoop = new Runnable() {
 
             public void run() {

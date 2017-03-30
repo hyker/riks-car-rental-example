@@ -33,23 +33,25 @@ public class App
         String broker = "tcp://127.0.0.1:1883";
 
         try {
-            MQTTClient publisher = new MQTTClient(broker, "publisher");
+            FireAlarm alarm = new FireAlarm(topic, broker, "ALARM");
             MQTTClient subscriber1 = new MQTTClient(broker, "subscriber1");
-            MQTTClient subscriber2 = new MQTTClient(broker, "subscriber2");
 
             subscriber1.subscribe(topic);
-            subscriber2.subscribe(topic);
 
-            for (int i = 0; i < 5; i++) {
-                publisher.publish(topic,message + " " + i);
+            while(true) {
+                alarm.trigger();
+                Thread.sleep(3000);
+                alarm.reset();
+                Thread.sleep(3000);
             }
-
 
 //            publisher.disconnect();
 //            subscriber1.disconnect();
 //            subscriber2.disconnect();
 
         } catch (MqttException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

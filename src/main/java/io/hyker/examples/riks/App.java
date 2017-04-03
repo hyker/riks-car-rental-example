@@ -19,39 +19,45 @@ public class App
 {
     public static void main( String[] args )
     {
-        final Server mqttBroker = new Server();
         try {
+
+            String broker = "tcp://127.0.0.1:1883";
+
+            final Server mqttBroker = new Server();
             mqttBroker.startServer(new File("mqtt.conf"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        String topic = "global/alarms";
+            Driver driver = new Driver(broker, "driverA");
+            Car car = new Car("car1");
+            FleetOwner fleetOwner = new FleetOwner(broker,"fleet_owner");
 
-        String broker = "tcp://127.0.0.1:1883";
+            //rent a car
+            driver.rentCar(car);
 
-        try {
-            FireAlarm alarm = new FireAlarm(topic, broker, "ALARM");
-            PubSubClient subscriber1 = new PubSubClient(broker, "subscriber1",
-                    new PubSubClient.SubscriberCallback() {
-                        @Override
-                        public void messageReceived(String topic, String message) {
-                            System.out.println("received: " + topic + " " + message);
-                        }
-                    });
+            //drive around for a bit
+            Thread.sleep(1000);
 
-            subscriber1.subscribe(topic);
+            //return car
+            driver.returnCar();
 
-            while(true) {
-                alarm.trigger();
-                Thread.sleep(3000);
-                alarm.reset();
-                Thread.sleep(3000);
-            }
+            //ride a bike
+            Thread.sleep(1000);
+
+            //rent car again
+            driver.rentCar(car);
+
+            //drive around for a bit
+            Thread.sleep(500);
+
+            //car is stolen, give access to fleet owner
+            driver.giveAccess(fleetOwner);
 
         } catch (MqttException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

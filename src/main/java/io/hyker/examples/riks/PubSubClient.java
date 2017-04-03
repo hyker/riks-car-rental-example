@@ -23,20 +23,17 @@ public class PubSubClient extends MqttClient implements MqttCallback{
 
     private String clientId;
     private RiksKit riksKit;
-    private SubscriberCallback callback;
 
-    public PubSubClient(String broker, String clientId,
-                        SubscriberCallback callback) throws MqttException {
+    public PubSubClient(String broker, String clientId, RiksKit riksKit) throws MqttException {
         super(broker,clientId,new MemoryPersistence());
 
-        this.callback = callback;
         this.clientId = clientId;
         MqttConnectOptions connOpts = new MqttConnectOptions();
         connOpts.setCleanSession(true);
         this.connect(connOpts);
         setCallback(this);
 
-        riksKit = new RiksKit(initCryptoBox(), initRiksWhitelist());
+        this.riksKit = riksKit;
 
     }
 
@@ -60,50 +57,21 @@ public class PubSubClient extends MqttClient implements MqttCallback{
     }
 
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-        System.out.println("MESSAGE ARRIVED: " + mqttMessage.toString());
         String messageBody = new String(mqttMessage.getPayload());
-        System.out.println("1: " + messageBody);
+        System.out.println("encrypted: " + messageBody);
         Message riksMessage = riksKit.decryptMessage(messageBody);
-        System.out.println("2");
         String decryptedMessage = riksMessage.secret;
-        System.out.println("4");
-        callback.messageReceived(topic, decryptedMessage);
-        System.out.println("5");
+        System.out.println("decrypted: " + decryptedMessage);
     }
 
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
         System.out.println("(" + clientId + ") MESSAGE PUBLISHED");
     }
 
-
-    private static CryptoBox initCryptoBox() {
-        CryptoBox cryptoBox = null;
-        try {
-            cryptoBox = new CryptoBox('#' + UUID.randomUUID().toString(), "asdqwe");
-        } catch (CryptoBoxCredentialsException e) {
-            e.printStackTrace();
-        } catch (PublicKeyLookupException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        }
-        cryptoBox.start();
-        return cryptoBox;
-    }
-
-    private static RiksWhitelist initRiksWhitelist() {
-        return new RiksWhitelist() {
-            public boolean allowedForKey(String uid, String namespace, String keyId) {
-                return true;
-            }
-            public void newKey(String keyId) {
-            }
-        };
-    }
-
     public interface SubscriberCallback{
         void messageReceived(String topic, String message);
     }
+
+
+
 }

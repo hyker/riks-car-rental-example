@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Maven: io.hyker.riks:riks:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/resources/riks-0.4.0-draft1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: io.hyker.pep:pep:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/resources/crypto-client-java-0.4.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: org.bouncycastle.155:bcmail:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/resources/bcmail-jdk15on-155.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: org.bouncycastle.155:bcpkix:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/resources/bcpkix-jdk15on-155.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Maven: org.bouncycastle.155:bcprov:1.0">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/resources/bcprov-jdk15on-155.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Maven: org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: io.moquette:moquette-broker:0.9" level="project" />
+    <orderEntry type="library" name="Maven: io.moquette:moquette-netty-parser:0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-common:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-buffer:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-transport:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-resolver:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-handler:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: io.netty:netty-codec-http:4.1.6.Final" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" name="Maven: org.mapdb:mapdb:1.0.8" level="project" />
+    <orderEntry type="library" name="Maven: org.hdrhistogram:HdrHistogram:2.1.4" level="project" />
+    <orderEntry type="library" name="Maven: com.hazelcast:hazelcast:3.5.4" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.6.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
+  </component>
+</module>

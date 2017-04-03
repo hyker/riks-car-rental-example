@@ -6,6 +6,7 @@ import io.apptimate.riks.box.RiksKit;
 import io.apptimate.riks.box.RiksWhitelist;
 import io.apptimate.riks.keys.SymKeyExpiredException;
 import io.apptimate.riks.message.Message;
+import io.apptimate.riks.message.RiksMessage;
 import io.apptimate.security.publickeylookup.PublicKeyLookupException;
 import org.bouncycastle.crypto.CryptoException;
 import org.eclipse.paho.client.mqttv3.*;
@@ -22,10 +23,13 @@ public class PubSubClient extends MqttClient implements MqttCallback{
 
     private String clientId;
     private RiksKit riksKit;
+    private SubscriberCallback callback;
 
-    public PubSubClient(String broker, String clientId) throws MqttException {
+    public PubSubClient(String broker, String clientId,
+                        SubscriberCallback callback) throws MqttException {
         super(broker,clientId,new MemoryPersistence());
 
+        this.callback = callback;
         this.clientId = clientId;
         MqttConnectOptions connOpts = new MqttConnectOptions();
         connOpts.setCleanSession(true);
@@ -55,9 +59,16 @@ public class PubSubClient extends MqttClient implements MqttCallback{
         System.out.println("(" + clientId + ") CONNECTION LOST");
     }
 
-    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+    public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+        System.out.println("MESSAGE ARRIVED: " + mqttMessage.toString());
         String messageBody = new String(mqttMessage.getPayload());
-        System.out.println("(" + clientId + ") MESSAGE ARRIVED: " + messageBody);
+        System.out.println("1: " + messageBody);
+        Message riksMessage = riksKit.decryptMessage(messageBody);
+        System.out.println("2");
+        String decryptedMessage = riksMessage.secret;
+        System.out.println("4");
+        callback.messageReceived(topic, decryptedMessage);
+        System.out.println("5");
     }
 
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
@@ -90,5 +101,9 @@ public class PubSubClient extends MqttClient implements MqttCallback{
             public void newKey(String keyId) {
             }
         };
+    }
+
+    public interface SubscriberCallback{
+        void messageReceived(String topic, String message);
     }
 }

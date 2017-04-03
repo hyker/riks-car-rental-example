@@ -32,7 +32,13 @@ public class App
 
         try {
             FireAlarm alarm = new FireAlarm(topic, broker, "ALARM");
-            PubSubClient subscriber1 = new PubSubClient(broker, "subscriber1");
+            PubSubClient subscriber1 = new PubSubClient(broker, "subscriber1",
+                    new PubSubClient.SubscriberCallback() {
+                        @Override
+                        public void messageReceived(String topic, String message) {
+                            System.out.println("received: " + topic + " " + message);
+                        }
+                    });
 
             subscriber1.subscribe(topic);
 

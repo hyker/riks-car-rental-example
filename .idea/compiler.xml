@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="riks_alarm_example" />
+        <module name="alarm-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="riks_alarm_example" target="1.8" />
+      <module name="alarm-example" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

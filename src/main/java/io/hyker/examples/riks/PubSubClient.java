@@ -61,7 +61,10 @@ public class PubSubClient extends MqttClient implements MqttCallback {
         String messageBody = new String(mqttMessage.getPayload());
         System.out.println("encrypted: " + messageBody);
 
-        riksKit.decryptMessageAsync(messageBody, new Decryptor());
+        riksKit.decryptMessageAsync(messageBody, (RiksKit.DecryptionCallback & Serializable) (message, e) -> {
+            String decryptedMessage = message.secret;
+            System.out.println("decrypted: " + decryptedMessage);
+        });
     }
 
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
@@ -70,16 +73,5 @@ public class PubSubClient extends MqttClient implements MqttCallback {
 
     public interface SubscriberCallback {
         void messageReceived(String topic, String message);
-    }
-
-
-    private class Decryptor implements RiksKit.DecryptionCallback, Serializable {
-
-        @Override
-        public void callback(Message message, Exception e) {
-
-            String decryptedMessage = message.secret;
-            System.out.println("decrypted: " + decryptedMessage);
-        }
     }
 }

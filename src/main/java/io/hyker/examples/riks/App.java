@@ -5,6 +5,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Demo of the RIKS protocol running over MQTT
@@ -28,8 +29,11 @@ public class App
 
             Driver driver = new Driver(broker, "driverA");
             Car car = new Car("car1");
-            FleetOwner fleetOwner = new FleetOwner(broker,"fleet_owner");
+            ArrayList<Car> fleet = new ArrayList<>();
+            fleet.add(car);
+            FleetOwner fleetOwner = new FleetOwner(broker,"fleet_owner" ,fleet);
 
+            System.out.println("Position is private to the driver.");
             //rent a car
             driver.rentCar(car);
 
@@ -39,15 +43,13 @@ public class App
             //return car
             driver.returnCar();
 
-            //ride a bike
-            Thread.sleep(1000);
-
             //rent car again
             driver.rentCar(car);
 
             //drive around for a bit
             Thread.sleep(500);
 
+            System.out.println("Position is now shared with fleet owner.");
             //car is stolen, give access to fleet owner
             driver.giveAccess(fleetOwner);
 

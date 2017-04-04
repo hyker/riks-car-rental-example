@@ -13,19 +13,20 @@ import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.GeneralSecurityException;
 import java.util.UUID;
 
 /**
  * Created by joakimb on 3/29/17.
  */
-public class PubSubClient extends MqttClient implements MqttCallback{
+public class PubSubClient extends MqttClient implements MqttCallback {
 
     private String clientId;
     private RiksKit riksKit;
 
     public PubSubClient(String broker, String clientId, RiksKit riksKit) throws MqttException {
-        super(broker,clientId,new MemoryPersistence());
+        super(broker, clientId, new MemoryPersistence());
 
         this.clientId = clientId;
         MqttConnectOptions connOpts = new MqttConnectOptions();
@@ -59,19 +60,26 @@ public class PubSubClient extends MqttClient implements MqttCallback{
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
         String messageBody = new String(mqttMessage.getPayload());
         System.out.println("encrypted: " + messageBody);
-        Message riksMessage = riksKit.decryptMessage(messageBody);
-        String decryptedMessage = riksMessage.secret;
-        System.out.println("decrypted: " + decryptedMessage);
+
+        riksKit.decryptMessageAsync(messageBody, new Decryptor());
     }
 
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
         System.out.println("(" + clientId + ") MESSAGE PUBLISHED");
     }
 
-    public interface SubscriberCallback{
+    public interface SubscriberCallback {
         void messageReceived(String topic, String message);
     }
 
 
+    private class Decryptor implements RiksKit.DecryptionCallback, Serializable {
 
+        @Override
+        public void callback(Message message, Exception e) {
+
+            String decryptedMessage = message.secret;
+            System.out.println("decrypted: " + decryptedMessage);
+        }
+    }
 }

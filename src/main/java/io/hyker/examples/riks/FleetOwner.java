@@ -9,6 +9,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -19,12 +20,22 @@ public class FleetOwner implements PubSubClient.SubscriberCallback {
     private final PubSubClient client;
     private final RiksKit riksKit;
     private Car car;
+    private CryptoBox cb;
 
-    public FleetOwner(String broker, String clientID)
+    public FleetOwner(String broker, String clientID, ArrayList<Car> cars)
             throws MqttException {
         car = null;
-        riksKit = new RiksKit(initCryptoBox(), initRiksWhitelist());
+        cb = initCryptoBox();
+        riksKit = new RiksKit(cb, initRiksWhitelist());
         client = new PubSubClient(broker, clientID, riksKit);
+
+        for (Car car : cars){
+            client.subscribe(car.getName());
+        }
+    }
+
+    public String getCryptoId(){
+        return cb.getUID();
     }
 
     private static CryptoBox initCryptoBox() {

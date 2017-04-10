@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * Demo of the RIKS protocol running over MQTT
  * Scenario is described at hyker.io
  *
+ *
  * Libraries used:
  * Hyker - RIKS
  * Eclipse - MQTT client paho
@@ -60,7 +61,7 @@ public class App
             //return car (end broadcasting)
             driver.returnCar();
 
-            //rent car again
+            //rent car again (resume broadcasting, but with a new encryption key)
             driver.rentCar(car);
 
             //drive around for a bit
@@ -68,6 +69,12 @@ public class App
 
             //car is stolen, give access to fleet owner
             driver.giveAccess(fleetOwner);
+
+            /*
+             * Now, access to positions from the latest driving session is given to the
+             * fleet owner. The owner can track the stolen car but is not given access
+             * to previous positions.
+             */
 
         } catch (MqttException e) {
             e.printStackTrace();

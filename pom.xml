@@ -47,14 +47,14 @@
       <artifactId>riks</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/riks-0.4.0-draft1.jar</systemPath>
+      <systemPath>${project.basedir}/src/main/resources/riks-1.0.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>io.hyker.pep</groupId>
       <artifactId>pep</artifactId>
       <version>1.0</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/crypto-client-java-0.4.1.jar</systemPath>
+      <systemPath>${project.basedir}/src/main/resources/crypto-client-java-1.0.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.bouncycastle.155</groupId>

@@ -45,4 +45,23 @@ The cars are subjects of the clients.
 
 The clients communicate through a cloud service, in this case an MQTT broker.
 
+## Test it
 
+### Obtain the code
+
+    git clone git@github.com:hykersec/riks-car-rental-example.git
+
+### Download libraries
+
+    [TODO]
+
+### Run project
+
+#### Terminal
+
+    cd riks-car-rental-example
+    gradle build
+
+#### Intellij
+
+You can also use intellij to run the project.

@@ -29,11 +29,20 @@ But on the other hand, once the history of where a car has been can be valuable 
 
 This is a scenario where RIKS comes in handy.
 Using RIKS, we can let the car broadcast its current position constantly and cache the position in a central storage.
-But before the position leaves the car, it is encrypted using RIKS by the current renters RIKS-key.
+But before the position leaves the car, it is encrypted using RIKS with the key of the current car user.
 
 This way, the full position history of the car is cached and available.
-But you need to ask the renter for the encryptin key in order to be able to decrypt it.
+But you need to ask the current car holder for the encryption key in order to be able to decrypt it.
 
 ## System Parts
+
+### Clients
+
+The drivers and the rental service are able to encrypt, decrypt and send messages.
+The cars are subjects of the clients.
+
+### Cloud service
+
+The clients communicate through a cloud service, in this case an MQTT broker.
 
 

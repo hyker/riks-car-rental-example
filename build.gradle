@@ -1,8 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin:'application'
+
 
 group = 'io.hyker.examples.riks'
-version = '1.0-SNAPSHOT'
+version = '1.0'
 
 description = """car-rental-example"""
 
@@ -12,6 +14,7 @@ tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
 }
 
+mainClassName = "io.hyker.examples.riks.App"
 
 
 repositories {

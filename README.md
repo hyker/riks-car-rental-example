@@ -60,7 +60,7 @@ The clients communicate through a cloud service, in this case an MQTT broker.
 #### Terminal
 
     cd riks-car-rental-example
-    gradle build
+    gradle run
 
 #### Intellij
 

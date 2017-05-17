@@ -1,6 +1,5 @@
 package io.hyker.examples.riks;
 
-import io.hyker.cryptobox.CryptoBox;
 import io.hyker.cryptobox.CryptoBoxCredentialsException;
 import io.hyker.riks.box.RiksKit;
 import io.hyker.riks.box.RiksWhitelist;

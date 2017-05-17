@@ -7,10 +7,7 @@ import org.bouncycastle.crypto.CryptoException;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.security.GeneralSecurityException;
-import java.util.UUID;
 
 /**
  * Created by joakimb on 3/29/17.
@@ -48,20 +45,24 @@ public class PubSubClient extends MqttClient implements MqttCallback {
         }
     }
 
+    @Override
     public void connectionLost(Throwable throwable) {
         System.out.println("(" + clientId + ") CONNECTION LOST");
     }
 
+    @Override
     public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
         String messageBody = new String(mqttMessage.getPayload());
-        System.out.println("encrypted: " + messageBody);
+        System.out.println("message arrived on: " + topic + " MESSAGE: " + messageBody);
 
-        riksKit.decryptMessageAsync(messageBody, (RiksKit.DecryptionCallback & Serializable) (message, e) -> {
+        riksKit.decryptMessageAsync(messageBody, (message, e) -> {
+            System.out.println("going to decrypt");
             String decryptedMessage = message.secret;
             System.out.println("decrypted: " + decryptedMessage);
         });
     }
 
+    @Override
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
         System.out.println("(" + clientId + ") MESSAGE PUBLISHED");
     }
